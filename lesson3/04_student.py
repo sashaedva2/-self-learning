@@ -10,5 +10,9 @@
 #   Студенту надо попросить ХХХ.ХХ рублей
 
 educational_grant, expenses = 10000, 12000
-
-# TODO здесь ваш код
+i, result = 1, expenses
+while i < 10:
+    result += expenses * 1.03 ** i
+    i += 1
+result = round(result - 10 * educational_grant, 2)
+print('Студенту надо попросить ', result, ' рублей')
