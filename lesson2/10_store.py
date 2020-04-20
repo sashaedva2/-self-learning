@@ -48,8 +48,24 @@ print('Лампа -', lamps_quantity, 'шт, стоимость', lamps_cost, '�
 
 # WARNING для знающих циклы: БЕЗ циклов. Да, с переменными; да, неэффективно; да, копипаста.
 # Это задание на ручное вычисление - что бы потом понять как работают циклы и насколько с ними проще жить.
+table_code = store[goods['Стол']]
+table_cost = table_code[0]['quantity'] * table_code[0]['price']
+table_cost = table_cost + table_code[1]['quantity'] * table_code[1]['price']
+table_quantity = table_code[0]['quantity'] + table_code[1]['quantity']
+print('Стол -', table_quantity, 'шт, стоимость', table_cost, 'руб')
 
-# TODO здесь ваш код
+sofa_code = store[goods['Диван']]
+sofa_cost = sofa_code[0]['quantity'] * sofa_code[0]['price']
+sofa_cost = sofa_cost + sofa_code[1]['quantity'] * sofa_code[1]['price']
+sofa_quantity = sofa_code[0]['quantity'] + sofa_code[1]['quantity']
+print('Диван -', sofa_quantity, 'шт, стоимость', sofa_cost, 'руб')
+
+chair_code = store[goods['Стул']]
+chair_cost = chair_code[0]['quantity'] * chair_code[0]['price']
+chair_cost = chair_cost + chair_code[1]['quantity'] * chair_code[1]['price']
+chair_cost = chair_cost + chair_code[2]['quantity'] * chair_code[2]['price']
+chair_quantity = chair_code[0]['quantity'] + chair_code[1]['quantity'] + chair_code[2]['quantity']
+print('Стул -', chair_quantity, 'шт, стоимость', chair_cost, 'руб')
 
 ##########################################################################################
 # ВНИМАНИЕ! После того как __ВСЯ__ домашняя работа сделана и запушена на сервер,         #
@@ -57,9 +73,3 @@ print('Лампа -', lamps_quantity, 'шт, стоимость', lamps_cost, '�
 # и оформить попытку сдачи ДЗ! Без этого ДЗ не будет проверяться!                        #
 # Как оформить попытку сдачи смотрите видео - https://youtu.be/qVpN0L-C3LU               #
 ##########################################################################################
-
-
-
-
-
-
