@@ -21,59 +21,96 @@ import simple_draw as sd
 #   - копипастим её, меняем название, чуть подправляем код,
 #   - и так далее.
 # В итоге должен получиться ПОЧТИ одинаковый код в каждой функции
+# def triangle(point, angle=0, length=100):
+#     v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
+#     v1.draw()
+#     v2 = sd.get_vector(start_point=v1.end_point, angle=angle + 120, length=length, width=3)
+#     v2.draw()
+#     v1 = sd.get_vector(start_point=v2.end_point, angle=angle + 240, length=length, width=3)
+#     v1.draw()
+#
+#
+# def square(point, angle=0, length=100):
+#     v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
+#     v1.draw()
+#     v2 = sd.get_vector(start_point=v1.end_point, angle=angle + 90, length=length, width=3)
+#     v2.draw()
+#     v1 = sd.get_vector(start_point=v2.end_point, angle=angle + 180, length=length, width=3)
+#     v1.draw()
+#     v2 = sd.get_vector(start_point=v1.end_point, angle=angle + 270, length=length, width=3)
+#     v2.draw()
+#
+#
+# def pentagon(point, angle=0, length=100):
+#     v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
+#     v1.draw()
+#     v2 = sd.get_vector(start_point=v1.end_point, angle=angle + 72, length=length, width=3)
+#     v2.draw()
+#     v1 = sd.get_vector(start_point=v2.end_point, angle=angle + 144, length=length, width=3)
+#     v1.draw()
+#     v2 = sd.get_vector(start_point=v1.end_point, angle=angle + 216, length=length, width=3)
+#     v2.draw()
+#     v1 = sd.get_vector(start_point=v2.end_point, angle=angle + 288, length=length, width=3)
+#     v1.draw()
+#
+#
+# def hexagon(point, angle=0, length=100):
+#     v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
+#     v1.draw()
+#     v2 = sd.get_vector(start_point=v1.end_point, angle=angle + 60, length=length, width=3)
+#     v2.draw()
+#     v1 = sd.get_vector(start_point=v2.end_point, angle=angle + 120, length=length, width=3)
+#     v1.draw()
+#     v2 = sd.get_vector(start_point=v1.end_point, angle=angle + 180, length=length, width=3)
+#     v2.draw()
+#     v1 = sd.get_vector(start_point=v2.end_point, angle=angle + 240, length=length, width=3)
+#     v1.draw()
+#     v2 = sd.get_vector(start_point=v1.end_point, angle=angle + 300, length=length, width=3)
+#     v2.draw()
+#
+#
+# point = sd.get_point(100, 100)
+# triangle(point)
+#
+# point = sd.get_point(400, 400)
+# square(point, 0, 80)
+#
+# point = sd.get_point(200, 400)
+# pentagon(point)
+#
+# point = sd.get_point(400, 200)
+# hexagon(point)
+
+
+def draw_figure(start_point, angle, length):
+    v = sd.get_vector(start_point=start_point, angle=angle, length=length, width=3)
+    v.draw()
+    return v.end_point
+
+
 def triangle(point, angle=0, length=100):
-    v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
-    v1.draw()
-    v2 = sd.get_vector(start_point=v1.end_point, angle=angle + 120, length=length, width=3)
-    v2.draw()
-    v1 = sd.get_vector(start_point=v2.end_point, angle=angle + 240, length=length, width=3)
-    v1.draw()
+    start = draw_figure(start_point=point, angle=angle, length=length)
+    for i in range(1, 3):
+        start = draw_figure(start_point=start, angle=angle + i * 120, length=length)
 
 
 def square(point, angle=0, length=100):
-    v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
-    v1.draw()
-    v2 = sd.get_vector(start_point=v1.end_point, angle=angle + 90, length=length, width=3)
-    v2.draw()
-    v1 = sd.get_vector(start_point=v2.end_point, angle=angle + 180, length=length, width=3)
-    v1.draw()
-    v2 = sd.get_vector(start_point=v1.end_point, angle=angle + 270, length=length, width=3)
-    v2.draw()
+    start = draw_figure(start_point=point, angle=angle, length=length)
+    for i in range(1, 4):
+        start = draw_figure(start_point=start, angle=angle + i * 90, length=length)
 
 
 def pentagon(point, angle=0, length=100):
-    v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
-    v1.draw()
-    v2 = sd.get_vector(start_point=v1.end_point, angle=angle + 72, length=length, width=3)
-    v2.draw()
-    v1 = sd.get_vector(start_point=v2.end_point, angle=angle + 144, length=length, width=3)
-    v1.draw()
-    v2 = sd.get_vector(start_point=v1.end_point, angle=angle + 216, length=length, width=3)
-    v2.draw()
-    v1 = sd.get_vector(start_point=v2.end_point, angle=angle + 288, length=length, width=3)
-    v1.draw()
+    start = draw_figure(start_point=point, angle=angle, length=length)
+    for i in range(1, 5):
+        start = draw_figure(start_point=start, angle=angle + i * 72, length=length)
 
 
 def hexagon(point, angle=0, length=100):
-    v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
-    v1.draw()
-    v2 = sd.get_vector(start_point=v1.end_point, angle=angle + 60, length=length, width=3)
-    v2.draw()
-    v1 = sd.get_vector(start_point=v2.end_point, angle=angle + 120, length=length, width=3)
-    v1.draw()
-    v2 = sd.get_vector(start_point=v1.end_point, angle=angle + 180, length=length, width=3)
-    v2.draw()
-    v1 = sd.get_vector(start_point=v2.end_point, angle=angle + 240, length=length, width=3)
-    v1.draw()
-    v2 = sd.get_vector(start_point=v1.end_point, angle=angle + 300, length=length, width=3)
-    v2.draw()
+    start = draw_figure(start_point=point, angle=angle, length=length)
+    for i in range(1, 6):
+        start = draw_figure(start_point=start, angle=angle + i * 60, length=length)
 
-
-# Пригодятся функции
-# sd.get_point()
-# sd.get_vector()
-# sd.line()
-# Результат решения см lesson_004/results/exercise_01_shapes.jpg
 
 point = sd.get_point(100, 100)
 triangle(point)
@@ -86,11 +123,6 @@ pentagon(point)
 
 point = sd.get_point(400, 200)
 hexagon(point)
-
-# Часть 1-бис.
-# Попробуйте прикинуть обьем работы, если нужно будет внести изменения в этот код.
-# Скажем, связывать точки не линиями, а дугами. Или двойными линиями. Или рисовать круги в угловых точках. Или...
-# А если таких функций не 4, а 44?
 
 # Часть 2 (делается после зачета первой части)
 #
