@@ -20,7 +20,7 @@ people = []
 for tag in tags:
     people.extend(tag)
 
-print(dots.join(people))
+pprint(dots.join(people))
 
 
 
