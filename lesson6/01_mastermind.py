@@ -43,4 +43,23 @@
 # Это пример применения SOLID принципа (см https://goo.gl/GFMoaI) в архитектуре программ.
 # Точнее, в этом случае важен принцип единственной ответственности - https://goo.gl/rYb3hT
 
-# TODO здесь ваш код...
+from game_engine import guess_the_number, check_the_number
+from termcolor import cprint, colored
+
+guess_the_number()
+cprint('Число загаданно)', color='green')
+result = dict()
+number_of_moves = 0
+while True:
+    while True:
+        answer_user = str(input(colored('Введите вариант числа - ', color='blue')))
+        if len(answer_user) > 4 or len(answer_user) == 0:
+            cprint('Неправильный формат числа!', color='red')
+        else:
+            break
+    result = check_the_number(answer_user)
+    number_of_moves += 1
+    cprint('Быки - {}, Коровы - {}'.format(result['bulls'],result['cows']), color='blue')
+    if result['bulls'] == 4:
+        break
+cprint('Позравляем, вы отгадали число за {}  шагов\n Хотите сыграть ещё?'.format(number_of_moves), color='green')
