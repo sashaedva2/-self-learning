@@ -19,7 +19,136 @@
 #   print(Water(), '+', Air(), '=', Water() + Air())
 #   print(Fire(), '+', Air(), '=', Fire() + Air())
 
-# TODO здесь ваш код
+class Water:
+    num = 1
+
+    def __str__(self):
+        return 'Вода'
+
+    def __add__(self, other):
+        if other.num == 2:
+            return Storm(part1=self, part2=other)
+        elif other.num == 3:
+            return Steam(part1=self, part2=other)
+        elif other.num == 4:
+            return Dirt(part1=self, part2=other)
+        else:
+            return None
+
+
+class Air:
+    num = 2
+
+    def __str__(self):
+        return 'Воздух'
+
+    def __add__(self, other):
+        if other.num == 1:
+            return Storm(part1=self, part2=other)
+        elif other.num == 3:
+            return Lightning(part1=self, part2=other)
+        elif other.num == 4:
+            return Dust(part1=self, part2=other)
+        else:
+            return None
+
+
+class Fire:
+    num = 3
+
+    def __str__(self):
+        return 'Огонь'
+
+    def __add__(self, other):
+        if other.num == 1:
+            return Steam(part1=self, part2=other)
+        elif other.num == 2:
+            return Lightning(part1=self, part2=other)
+        elif other.num == 4:
+            return Lava(part1=self, part2=other)
+        else:
+            return None
+
+
+class Earth:
+    num = 4
+
+    def __str__(self):
+        return 'Земля'
+
+    def __add__(self, other):
+        if other.num == 1:
+            return Dirt(part1=self, part2=other)
+        elif other.num == 2:
+            return Dust(part1=self, part2=other)
+        elif other.num == 3:
+            return Lava(part1=self, part2=other)
+        else:
+            return None
+
+
+class Storm:
+
+    def __init__(self, part1, part2):
+        self.part1 = part1
+        self.part2 = part2
+
+    def __str__(self):
+        return 'Шторм'
+
+
+class Steam:
+
+    def __init__(self, part1, part2):
+        self.part1 = part1
+        self.part2 = part2
+
+    def __str__(self):
+        return 'Пар'
+
+
+class Dirt:
+
+    def __init__(self, part1, part2):
+        self.part1 = part1
+        self.part2 = part2
+
+    def __str__(self):
+        return 'Грязь'
+
+
+class Lightning:
+
+    def __init__(self, part1, part2):
+        self.part1 = part1
+        self.part2 = part2
+
+    def __str__(self):
+        return 'Молния'
+
+
+class Dust:
+
+    def __init__(self, part1, part2):
+        self.part1 = part1
+        self.part2 = part2
+
+    def __str__(self):
+        return 'Пыль '
+
+
+class Lava:
+
+    def __init__(self, part1, part2):
+        self.part1 = part1
+        self.part2 = part2
+
+    def __str__(self):
+        return 'Лава'
+
+
+print(Water(), ' + ', Water(), ' = ', Water() + Water())
+print(Fire(), ' + ', Air(), ' = ', Fire() + Air())
 
 # Усложненное задание (делать по желанию)
 # Добавить еще элемент в игру.
