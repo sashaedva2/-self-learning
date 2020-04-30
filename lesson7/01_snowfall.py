@@ -39,30 +39,57 @@ class Snowflake:
         return False
 
 
-flake = Snowflake()
-
-while True:
-    flake.clear_previous_picture()
-    flake.move()
-    flake.draw()
-    if flake.can_fall():
-        break
-    sd.sleep(0.1)
-    if sd.user_want_exit():
-        break
-
-# шаг 2: создать снегопад - список объектов Снежинка в отдельном списке, обработку примерно так:
-# flakes = get_flakes(count=N)  # создать список снежинок
+# flake = Snowflake()
+#
 # while True:
-#     for flake in flakes:
-#         flake.clear_previous_picture()
-#         flake.move()
-#         flake.draw()
-#     fallen_flakes = get_fallen_flakes()  # подчитать сколько снежинок уже упало
-#     if fallen_flakes:
-#         append_flakes(count=fallen_flakes)  # добавить еще сверху
+#     flake.clear_previous_picture()
+#     flake.move()
+#     flake.draw()
+#     if flake.can_fall():
+#         break
 #     sd.sleep(0.1)
 #     if sd.user_want_exit():
 #         break
+list_snowfall = list()
+
+
+def get_flakes(count):
+    for _ in range(count):
+        list_snowfall.append(Snowflake())
+    return list_snowfall
+
+
+def get_fallen_flakes():
+    count = 0
+    for snowfall in list_snowfall:
+        if snowfall.position[1] < 10:
+            count = 1
+            snowfall.clear_previous_picture()
+    snowfalls = [snowfall for snowfall in list_snowfall if snowfall.position[1] >=10]
+    list_snowfall.clear()
+    list_snowfall.extend(snowfalls)
+    return count
+
+
+def append_flakes(count):
+    for _ in range(count):
+        list_snowfall.append(Snowflake())
+    return list_snowfall
+
+
+# шаг 2: создать снегопад - список объектов Снежинка в отдельном списке, обработку примерно так:
+N = 10
+flakes = get_flakes(count=N)  # создать список снежинок
+while True:
+    for flake in flakes:
+        flake.clear_previous_picture()
+        flake.move()
+        flake.draw()
+    fallen_flakes = get_fallen_flakes()  # подчитать сколько снежинок уже упало
+    if fallen_flakes:
+        append_flakes(count=fallen_flakes)  # добавить еще сверху
+    sd.sleep(0.1)
+    if sd.user_want_exit():
+        break
 
 sd.pause()
