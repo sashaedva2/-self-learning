@@ -32,6 +32,8 @@ class Water:
             return Steam(part1=self, part2=other)
         elif other.num == 4:
             return Dirt(part1=self, part2=other)
+        elif other.num == 5:
+            return Fish(part1=self, part2=other)
         else:
             return None
 
@@ -49,6 +51,8 @@ class Air:
             return Lightning(part1=self, part2=other)
         elif other.num == 4:
             return Dust(part1=self, part2=other)
+        elif other.num == 5:
+            return Birds(part1=self, part2=other)
         else:
             return None
 
@@ -66,6 +70,8 @@ class Fire:
             return Lightning(part1=self, part2=other)
         elif other.num == 4:
             return Lava(part1=self, part2=other)
+        elif other.num == 5:
+            return Dragon(part1=self, part2=other)
         else:
             return None
 
@@ -83,6 +89,27 @@ class Earth:
             return Dust(part1=self, part2=other)
         elif other.num == 3:
             return Lava(part1=self, part2=other)
+        elif other.num == 5:
+            return Golem(part1=self, part2=other)
+        else:
+            return None
+
+
+class Live:
+    num = 5
+
+    def __str__(self):
+        return 'Жизнь'
+
+    def __add__(self, other):
+        if other.num == 1:
+            return Fish(part1=self, part2=other)
+        elif other.num == 2:
+            return Birds(part1=self, part2=other)
+        elif other.num == 3:
+            return Dragon(part1=self, part2=other)
+        elif other.num == 4:
+            return Golem(part1=self, part2=other)
         else:
             return None
 
@@ -147,8 +174,48 @@ class Lava:
         return 'Лава'
 
 
-print(Water(), ' + ', Water(), ' = ', Water() + Water())
-print(Fire(), ' + ', Air(), ' = ', Fire() + Air())
+class Fish:
+
+    def __init__(self, part1, part2):
+        self.part1 = part1
+        self.part2 = part2
+
+    def __str__(self):
+        return 'Рыбы'
+
+
+class Birds:
+
+    def __init__(self, part1, part2):
+        self.part1 = part1
+        self.part2 = part2
+
+    def __str__(self):
+        return 'Птицы'
+
+
+class Dragon:
+
+    def __init__(self, part1, part2):
+        self.part1 = part1
+        self.part2 = part2
+
+    def __str__(self):
+        return 'Дракон'
+
+
+class Golem:
+
+    def __init__(self, part1, part2):
+        self.part1 = part1
+        self.part2 = part2
+
+    def __str__(self):
+        return 'Голем'
+
+
+print(Water(), ' + ', Live(), ' = ', Water() + Live())
+print(Live(), ' + ', Air(), ' = ', Live() + Air())
 
 # Усложненное задание (делать по желанию)
 # Добавить еще элемент в игру.
