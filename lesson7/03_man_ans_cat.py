@@ -26,6 +26,7 @@ from random import randint
 # Человеку и коту надо вместе прожить 365 дней.
 from termcolor import cprint
 
+
 class Cat:
     def __init__(self, name):
         self.name = name
@@ -35,6 +36,43 @@ class Cat:
     def __str__(self):
         return 'Я - {}, сытость {}'.format(
             self.name, self.fullness)
+
+    def eat(self):
+        if self.house.catfood >= 10:
+            cprint('{} поел'.format(self.name), color='yellow')
+            self.fullness += 10
+            self.house.catfood -= 10
+        else:
+            cprint('{} нет еды'.format(self.name), color='red')
+
+    def sleep(self):
+        cprint('{} поспал'.format(self.name), color='green')
+        self.fullness -= 10
+
+    def work(self):
+        cprint('{} Подрал обои'.format(self.name), color='red')
+        self.house.dirt += 5
+        self.fullness -= 10
+
+    def go_to_the_house(self, house):
+        self.house = house
+        self.fullness -= 10
+        cprint('{} Забрали в дом'.format(self.name), color='cyan')
+
+    def act(self):
+        if self.fullness <= 0:
+            cprint('{} умер...'.format(self.name), color='red')
+            return
+        dice = randint(1, 3)
+        if self.fullness < 20:
+            self.eat()
+        elif dice == 1:
+            self.work()
+        elif dice == 2:
+            self.eat()
+        else:
+            self.sleep()
+
 
 class Man:
 
@@ -54,25 +92,32 @@ class Man:
             self.house.food -= 10
         else:
             cprint('{} нет еды'.format(self.name), color='red')
-
+            self.fullness -= 3
     def work(self):
         cprint('{} сходил на работу'.format(self.name), color='blue')
-        self.house.money += 50
+        self.house.money += 150
         self.fullness -= 10
 
     def play(self):
         cprint('{} Прокрастинировал целый день'.format(self.name), color='green')
         self.fullness -= 10
 
+    def cleaning(self):
+        cprint('{} Убирается'.format(self.name), color='blue')
+        self.house.dirt -= 100
+        self.fullness -= 20
+        self.eat()
+
     def shopping(self):
         if self.house.money >= 50:
             cprint('{} сходил в магазин за едой'.format(self.name), color='magenta')
-            self.house.money -= 50
+            self.house.money -= 80
             self.house.food += 50
+            self.house.catfood += 50
         else:
             cprint('{} деньги кончились!'.format(self.name), color='red')
 
-    def go_to_the_house(self, house):
+    def go_house(self, house):
         self.house = house
         self.fullness -= 10
         cprint('{} Вьехал в дом'.format(self.name), color='cyan')
@@ -81,13 +126,16 @@ class Man:
         if self.fullness <= 0:
             cprint('{} умер...'.format(self.name), color='red')
             return
-        dice = randint(1, 6)
+        dice = randint(1, 3)
         if self.fullness < 20:
             self.eat()
-        elif self.house.food < 10:
-            self.shopping()
-        elif self.house.money < 50:
+        elif self.house.dirt >= 100:
+            self.cleaning()
+        elif self.house.money < 80:
             self.work()
+        elif (self.house.food < 10) or (self.house.catfood < 10):
+            self.shopping()
+
         elif dice == 1:
             self.work()
         elif dice == 2:
@@ -100,27 +148,34 @@ class House:
 
     def __init__(self):
         self.food = 50
-        self.money = 0
+        self.money = 10
         self.catfood = 0
         self.dirt = 0
 
     def __str__(self):
         return 'В доме еды осталось {}, денег осталось {}, кашачего корма осталось {}, кол-во грязи {}'.format(
-            self.food, self.money, self.catfoood, self.dirt)
+            self.food, self.money, self.catfood, self.dirt)
 
 
-Sasha = Man(name='Саша'),
+Sasha = Man(name='Саша')
+cats=[
+    Cat('Люся'),
+    Cat('Михаил'),
+    Cat('Бакс'), ]
 
 myhome = House()
-Sasha.go_to_the_house(house=myhome)
-
+Sasha.go_house(house=myhome)
+for cat in cats:
+    cat.go_to_the_house(house=myhome)
 for day in range(1, 366):
     print('================ день {} =================='.format(day))
-    for citisen in citizens:
-        citisen.act()
+    Sasha.act()
+    for cat in cats:
+        cat.act()
     print('--- в конце дня ---')
-    for citisen in citizens:
-        print(citisen)
+    print(Sasha)
+    for cat in cats:
+        print(cat)
     print(myhome)
 
 # Усложненное задание (делать по желанию)
