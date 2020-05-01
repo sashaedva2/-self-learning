@@ -161,7 +161,9 @@ Sasha = Man(name='Саша')
 cats=[
     Cat('Люся'),
     Cat('Михаил'),
-    Cat('Бакс'), ]
+    Cat('Бакс'),
+    Cat('Бывшая'),
+    Cat('Олег')]
 
 myhome = House()
 Sasha.go_house(house=myhome)
