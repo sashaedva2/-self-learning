@@ -145,9 +145,8 @@ class Wife(Man):
             self.clean_house()
         elif (self.happy < 20):
             self.buy_fur_coat()
-        elif (self.house.food < 30):  # or (self.house.catfood < 10)
+        elif (self.house.food < 40):  # or (self.house.catfood < 10)
             self.shopping()
-
         elif dice == 1:
             self.shopping()
         elif dice == 2:
@@ -189,14 +188,13 @@ class Wife(Man):
         self.fullness -= 10
 
     def shopping(self):
-        if self.house.money >= 70:
+        if self.house.money >= 90:
             cprint('{} сходил в магазин за едой'.format(self.name), color='magenta')
-            self.house.money -= 70
-            self.house.food += 70
+            self.house.money -= 90
+            self.house.food += 90
             # self.house.catfood += 50
         else:
             cprint('{} деньги кончились!'.format(self.name), color='red')
-
 
 
 ######################################################## Часть вторая
@@ -252,35 +250,72 @@ class Cat:
 # отличия от взрослых - кушает максимум 10 единиц еды,
 # степень счастья  - не меняется, всегда ==100 ;)
 
-class Child:
+class Child(Man):
 
-    def __init__(self):
-        pass
+    def __init__(self, name):
+        super().__init__(name)
+        self.house = None
 
     def __str__(self):
-        return super().__str__()
+        return 'Я - {}, сытость {}'.format(self.name, self.fullness)
 
     def act(self):
-        pass
+        if (self.fullness <= 0) or (self.happy <= 0):
+            cprint('{} умер...'.format(self.name), color='red')
+            return
+        dice = randint(1, 2)
+        if self.fullness < 15:
+            self.eat()
+        elif dice == 1:
+            self.sleep()
+        elif dice == 2:
+            self.eat()
 
     def eat(self):
-        pass
+        if self.house.food >= 10:
+            cprint('{} поел'.format(self.name), color='yellow')
+            self.fullness += 10
+            self.house.food -= 10
+            if self.fullness > 100:
+                self.fullness = 100
+        else:
+            cprint('{} нет еды'.format(self.name), color='red')
+            self.fullness -= 3
 
     def sleep(self):
-        pass
+        cprint('{} поспал'.format(self.name), color='green')
+        self.fullness -= 5
 
+    def go_to_the_house(self, house):
+        self.house = house
+        self.fullness -= 5
+        cprint('{} - появление в доме'.format(self.name), color='cyan')
+
+
+children = [
+    # Child('Люся'),
+    Child('Михаил'),
+    # Child('Бакс'),
+    # Child('Кузя'),
+    Child('Олег')]
 home = House()
 serge = Husband(name='Сережа')
 masha = Wife(name='Маша')
 serge.go_house(house=home)
 masha.go_house(house=home)
+for child in children:
+    child.go_to_the_house(house=home)
 for day in range(365):
     cprint('================== День {} =================='.format(day), color='red')
     home.dirt += 10
     serge.act()
     masha.act()
+    for child in children:
+        child.act()
     cprint(serge, color='cyan')
     cprint(masha, color='cyan')
+    for child in children:
+        cprint(child, color='cyan')
     cprint(home, color='cyan')
 
 ######################################################## Часть третья
