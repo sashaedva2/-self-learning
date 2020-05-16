@@ -198,22 +198,6 @@ class Wife(Man):
             cprint('{} деньги кончились!'.format(self.name), color='red')
 
 
-home = House()
-serge = Husband(name='Сережа')
-masha = Wife(name='Маша')
-serge.go_house(house=home)
-masha.go_house(house=home)
-for day in range(365):
-    cprint('================== День {} =================='.format(day), color='red')
-    home.dirt += 10
-    serge.act()
-    masha.act()
-    cprint(serge, color='cyan')
-    cprint(masha, color='cyan')
-    cprint(home, color='cyan')
-
-
-# TODO после реализации первой части - отдать на проверку учителю
 
 ######################################################## Часть вторая
 #
@@ -285,7 +269,19 @@ class Child:
     def sleep(self):
         pass
 
-# TODO после реализации второй части - отдать на проверку учителем две ветки
+home = House()
+serge = Husband(name='Сережа')
+masha = Wife(name='Маша')
+serge.go_house(house=home)
+masha.go_house(house=home)
+for day in range(365):
+    cprint('================== День {} =================='.format(day), color='red')
+    home.dirt += 10
+    serge.act()
+    masha.act()
+    cprint(serge, color='cyan')
+    cprint(masha, color='cyan')
+    cprint(home, color='cyan')
 
 ######################################################## Часть третья
 #
