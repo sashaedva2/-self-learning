@@ -2,6 +2,7 @@
 
 import os, time, shutil
 
+
 # Нужно написать скрипт для упорядочивания фотографий (вообще любых файлов)
 # Скрипт должен разложить файлы из одной папки по годам и месяцам в другую.
 # Например, так:
@@ -33,8 +34,22 @@ import os, time, shutil
 #
 # Чтение документации/гугла по функциям - приветствуется. Как и поиск альтернативных вариантов :)
 # Требования к коду: он должен быть готовым к расширению функциональности. Делать сразу на классах.
+def distribution(path, newdir):
+    link = os.path.basename(os.path.dirname(path))
+    date = time.gmtime(os.path.getmtime(path))
+    directory = newdir + '\{0}\{1}\{2}'.format(link, date.tm_year, date.tm_mon)
+    if not os.path.isdir(directory):
+        os.makedirs(directory)
+    shutil.copy2(path, directory)
 
-# TODO здесь ваш код
+
+dirname = 'G:\icons'
+newdir = 'G:\icons{0}'.format('_by_year')
+shutil.rmtree(newdir)
+for d, dirs, files in os.walk(dirname):
+    for f in files:
+        path = os.path.join(d, f)  # формирование адреса
+        distribution(path, newdir)  # добавление адреса в список
 
 # Усложненное задание (делать по желанию)
 # Нужно обрабатывать zip-файл, содержащий фотографии, без предварительного извлечения файлов в папку.
