@@ -34,22 +34,47 @@ import os, time, shutil
 #
 # Чтение документации/гугла по функциям - приветствуется. Как и поиск альтернативных вариантов :)
 # Требования к коду: он должен быть готовым к расширению функциональности. Делать сразу на классах.
-def distribution(path, newdir):
-    link = os.path.basename(os.path.dirname(path))
-    date = time.gmtime(os.path.getmtime(path))
-    directory = newdir + '\{0}\{1}\{2}'.format(link, date.tm_year, date.tm_mon)
-    if not os.path.isdir(directory):
-        os.makedirs(directory)
-    shutil.copy2(path, directory)
+# def distribution(path, newdir):
+#     link = os.path.basename(os.path.dirname(path))
+#     date = time.gmtime(os.path.getmtime(path))
+#     directory = newdir + '\{0}\{1}\{2}'.format(link, date.tm_year, date.tm_mon)
+#     if not os.path.isdir(directory):
+#         os.makedirs(directory)
+#     shutil.copy2(path, directory)
+#
+#
+# dirname = 'G:\icons'
+# newdir = 'G:\icons{0}'.format('_by_year')
+# shutil.rmtree(newdir)
+# for d, dirs, files in os.walk(dirname):
+#     for f in files:
+#         path = os.path.join(d, f)  # формирование адреса
+#         distribution(path, newdir)  # добавление адреса в список
 
 
-dirname = 'G:\icons'
-newdir = 'G:\icons{0}'.format('_by_year')
-shutil.rmtree(newdir)
-for d, dirs, files in os.walk(dirname):
-    for f in files:
-        path = os.path.join(d, f)  # формирование адреса
-        distribution(path, newdir)  # добавление адреса в список
+class Files_arrange:
+
+    def __init__(self, dirname, newdir):
+        self.dirname = dirname
+        self.newdir = newdir
+        if os.path.isdir(newdir):
+            shutil.rmtree(newdir)
+
+    def arrange(self):
+        for d, dirs, files in os.walk(self.dirname):
+            for f in files:
+                self.distribution(os.path.join(d, f))  # формирование адреса, добавление адреса в список
+
+    def distribution(self, path):
+        self.link = os.path.basename(os.path.dirname(path))
+        self.date = time.gmtime(os.path.getmtime(path))
+        self.directory = self.newdir + '\{0}\{1}\{2}'.format(self.link, self.date.tm_year, self.date.tm_mon)
+        if not os.path.isdir(self.directory):
+            os.makedirs(self.directory)
+        shutil.copy2(path, self.directory)
+
+files_arrange = Files_arrange('G:\icons', 'G:\icons_by_year')
+files_arrange.arrange()
 
 # Усложненное задание (делать по желанию)
 # Нужно обрабатывать zip-файл, содержащий фотографии, без предварительного извлечения файлов в папку.
