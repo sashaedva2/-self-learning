@@ -31,25 +31,7 @@ import os, time, shutil
 #   time.gmtime
 #   os.makedirs
 #   shutil.copy2
-#
-# Чтение документации/гугла по функциям - приветствуется. Как и поиск альтернативных вариантов :)
-# Требования к коду: он должен быть готовым к расширению функциональности. Делать сразу на классах.
-# def distribution(path, newdir):
-#     link = os.path.basename(os.path.dirname(path))
-#     date = time.gmtime(os.path.getmtime(path))
-#     directory = newdir + '\{0}\{1}\{2}'.format(link, date.tm_year, date.tm_mon)
-#     if not os.path.isdir(directory):
-#         os.makedirs(directory)
-#     shutil.copy2(path, directory)
-#
-#
-# dirname = 'G:\icons'
-# newdir = 'G:\icons{0}'.format('_by_year')
-# shutil.rmtree(newdir)
-# for d, dirs, files in os.walk(dirname):
-#     for f in files:
-#         path = os.path.join(d, f)  # формирование адреса
-#         distribution(path, newdir)  # добавление адреса в список
+
 
 
 class Files_arrange:
