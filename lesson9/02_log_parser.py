@@ -50,8 +50,60 @@ class Log_parser:
             self.file_output.write('{0}] {1:3d}\n'.format(self.stat_write, self.stat))
 
 
-log_parser = Log_parser(file_inp='events.txt', file_out='log.txt')
+class Log_parser_group_hour(Log_parser):
+
+    def _collect_for_line(self, line):
+        if self.flag != line[13]:
+            self.write_log()
+            self.stat = 0
+            self.flag = line[13]
+            self.stat_write = line[:14]
+        if 'NOK' in line:
+            self.stat += 1
+
+    def write_log(self):
+        if self.stat_write > '':
+            self.file_output.write('{0} hour] {1:3d}\n'.format(self.stat_write, self.stat))
+
+
+class Log_parser_group_month(Log_parser):
+
+    def _collect_for_line(self, line):
+        if self.flag != line[7]:
+            self.write_log()
+            self.stat = 0
+            self.flag = line[7]
+            self.stat_write = line[:8]
+        if 'NOK' in line:
+            self.stat += 1
+
+    def write_log(self):
+        if self.stat_write > '':
+            self.file_output.write('{0} month] {1:3d}\n'.format(self.stat_write, self.stat))
+
+
+class Log_parser_group_year(Log_parser):
+
+    def _collect_for_line(self, line):
+        if self.flag != line[4]:
+            self.write_log()
+            self.stat = 0
+            self.flag = line[4]
+            self.stat_write = line[:5]
+        if 'NOK' in line:
+            self.stat += 1
+
+    def write_log(self):
+        if self.stat_write > '':
+            self.file_output.write('{0} year] {1:3d}\n'.format(self.stat_write, self.stat))
+
+
+# log_parser = Log_parser(file_inp='events.txt', file_out='log.txt')
+# log_parser = Log_parser_group_hour(file_inp='events.txt', file_out='log.txt')
+#log_parser = Log_parser_group_month(file_inp='events.txt', file_out='log.txt')
+log_parser = Log_parser_group_year(file_inp='events.txt', file_out='log.txt')
 log_parser.read_file()
+
 # После выполнения первого этапа нужно сделать группировку событий
 #  - по часам
 #  - по месяцу
