@@ -33,7 +33,6 @@ import os, time, shutil
 #   shutil.copy2
 
 
-
 class Files_arrange:
 
     def __init__(self, dirname, newdir):
@@ -48,14 +47,16 @@ class Files_arrange:
                 self.distribution(os.path.join(d, f))  # формирование адреса, добавление адреса в список
 
     def distribution(self, path):
-        self.link = os.path.basename(os.path.dirname(path))
+        self.link = os.path.dirname(path).replace(self.dirname, self.newdir)  # новый адрес, созданый заменой частей
         self.date = time.gmtime(os.path.getmtime(path))
-        self.directory = self.newdir + '\{0}\{1}\{2}'.format(self.link, self.date.tm_year, self.date.tm_mon)
+        self.directory = self.link + '\{0}\{1}'.format(self.date.tm_year,
+                                                       self.date.tm_mon)  # конечный адрес с сортировкой
         if not os.path.isdir(self.directory):
             os.makedirs(self.directory)
         shutil.copy2(path, self.directory)
 
-files_arrange = Files_arrange('G:\icons', 'G:\icons_by_year')
+
+files_arrange = Files_arrange('G:\Books', 'G:\Books_sort')
 files_arrange.arrange()
 
 # Усложненное задание (делать по желанию)
