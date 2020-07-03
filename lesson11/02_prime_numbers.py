@@ -6,13 +6,14 @@
 
 def get_prime_numbers(n):
     prime_numbers = []
-    for number in range(2, n+1):
+    for number in range(2, n + 1):
         for prime in prime_numbers:
             if number % prime == 0:
                 break
         else:
             prime_numbers.append(number)
     return prime_numbers
+
 
 # Часть 1
 # На основе алгоритма get_prime_numbers создать класс итерируемых обьектов,
@@ -22,8 +23,28 @@ def get_prime_numbers(n):
 
 
 class PrimeNumbers:
-    pass
-    # TODO здесь ваш код
+    def __init__(self, n):
+        self.i, self.n = 1, n
+        self.prime_numbers = []
+
+    def __iter__(self):
+        # обнуляем счетчик перед циклом
+        self.i = 1
+        # возвращаем ссылку на себя - я буду итератором!
+        return self
+
+    def __next__(self):
+        # а этот метод возвращает значения по требованию python
+        self.i += 1
+        for prime in self.prime_numbers:
+            if self.i % prime == 0:
+                return self.__next__()
+        else:
+            if self.i >self.n:
+                 raise StopIteration()
+            self.prime_numbers.append(self.i)
+            return self.i
+          # признак того, что больше возвращать нечего
 
 
 prime_number_iterator = PrimeNumbers(n=10000)
@@ -42,9 +63,8 @@ def prime_numbers_generator(n):
     # TODO здесь ваш код
 
 
-for number in prime_numbers_generator(n=10000):
-    print(number)
-
+# for number in prime_numbers_generator(n=10000):
+#     print(number)
 
 # Часть 3
 # Написать несколько функций-фильтров, которые выдает True, если число:
