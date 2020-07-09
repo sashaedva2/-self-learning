@@ -68,12 +68,38 @@ def prime_numbers_generator(n):
             if i > n:
                 return
             prime_numbers.append(i)
-            yield i
+            yield i, 'Счастливое: {0} , Полидром: {1}'.format(happy_number(i),
+                                                              polidrom(i))
 
 
-for number in prime_numbers_generator(n=100):
+def happy_number(n):
+    c = list(str(n))
+    s = 0
+    if len(c) > 1:
+        while len(c) > 1:
+            s += int(c[0])
+            s -= int(c[-1])
+            del c[0], c[-1]
+    else:
+        return False
+    if s == 0:
+        return True
+    else:
+        return False
+
+
+def polidrom(n):
+    c = list(str(n))
+    a = list(str(n))
+    a.reverse()
+    if c == a:
+        return True
+    else:
+        return False
+
+
+for number in prime_numbers_generator(n=1000):
     print(number)
-
 # Часть 3
 # Написать несколько функций-фильтров, которые выдает True, если число:
 # 1) "счастливое" в обыденном пониманиии - сумма первых цифр равна сумме последних
