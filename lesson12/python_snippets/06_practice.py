@@ -35,7 +35,7 @@ class PageSizer:
         self.total_bytes += len(html_data)
         extractor = LinkExtractor(base_url=self.url)
         extractor.feed(html_data)
-        for link in extractor.links:
+        for link in extractor.links:# процессия по внутренним переходам( загрузка по внутренним ссылкам)
             extra_data = self._get_html(url=link)
             if extra_data:
                 self.total_bytes += len(extra_data)
@@ -44,6 +44,7 @@ class PageSizer:
         try:
             print(f'Go {url}...')
             res = requests.get(url)
+            # requests необходим для разных кодировок сайтов, парсит приближённо к human
         except Exception as exc:
             print(exc)
         else:

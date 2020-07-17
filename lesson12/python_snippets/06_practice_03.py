@@ -63,7 +63,7 @@ class PageSizer(multiprocessing.Process):
 
 @time_track
 def main():
-    collector = multiprocessing.Queue()
+    collector = multiprocessing.Queue() # очередь чтоб забирать результаты из процессоров
     sizers = [PageSizer(url=url, collector=collector) for url in sites]
 
     for sizer in sizers:

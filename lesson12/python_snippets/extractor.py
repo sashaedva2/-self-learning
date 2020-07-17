@@ -24,3 +24,4 @@ class LinkExtractor(HTMLParser):
 
     def _refine(self, link):
         return urljoin(self.base_url, link)
+        #обработка относительных ссылок в нормальные ведь python не обращается по относительным

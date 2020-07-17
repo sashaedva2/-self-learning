@@ -27,7 +27,7 @@ class PageSizer(threading.Thread):
     def __init__(self, url, go_ahead=True, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.url = url
-        self.go_ahead = go_ahead
+        self.go_ahead = go_ahead# необходимо в внутренней многопоточности 42 стока, типо вложенность
         self.total_bytes = 0
 
     def run(self):
