@@ -50,7 +50,7 @@ def vivod_max_min(func, dictionary):
 @time_track
 def main():
     files_all = list()
-    dict_volatil = defaultdict(int)
+    dict_volatil = dict()
     collector = multiprocessing.Queue()
     for d, dirs, files in os.walk('trades'):
         for f in files:
@@ -60,15 +60,14 @@ def main():
 
     for volat in volats:
         volat.start()
-    try:
-        for volat in volats:
-            volat.join()
-    except Exception as exc:
-        print(exc)
+    for volat in volats:
+        volat.join()
+
     while not collector.empty():
-        database = collector.get()
-        dict_volatil[database['flag']] = round(database['volatility'], 2)
-        print(f"{database['flag']}: Тикет обработан", flush=True)
+        data = collector.get()
+        flag = data['flag']
+        dict_volatil[flag] = round(data['volatility'], 2)
+        print(f"{flag}: Тикет обработан", flush=True)
 
     print('Максимальная волатильность:')
     vivod_max_min(max, dict_volatil)
