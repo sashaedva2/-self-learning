@@ -92,13 +92,13 @@ class Volatility:
         # data2 = data[['PRICE', 'QUANTITY']]
 
 
-def vivod(func, dict):
-    mode = func(dict, key=dict.get)
-    print(f'    {mode} - {dict.pop(mode)} %')
-    mode = func(dict, key=dict.get)
-    print(f'    {mode} - {dict.pop(mode)} %')
-    mode = func(dict, key=dict.get)
-    print(f'    {mode} - {dict.pop(mode)} %')
+def vivod_max_min(func, dictionary):
+    mode = func(dictionary, key=dictionary.get)
+    print(f'    {mode} - {dictionary.pop(mode)} %')
+    mode = func(dictionary, key=dictionary.get)
+    print(f'    {mode} - {dictionary.pop(mode)} %')
+    mode = func(dictionary, key=dictionary.get)
+    print(f'    {mode} - {dictionary.pop(mode)} %')
 
 
 @time_track
@@ -118,24 +118,12 @@ def main():
         dict_volatil[volat.data['SECID'][0]] = round(volat.volatility, 2)
 
     print('Максимальная волатильность:')
-    vivod(max, dict_volatil)
-    # mode = max(dict_volatil, key=dict_volatil.get)
-    # print(f'    {mode} - {dict_volatil.pop(mode)} %')
-    # mode = max(dict_volatil, key=dict_volatil.get)
-    # print(f'    {mode} - {dict_volatil.pop(mode)} %')
-    # mode = max(dict_volatil, key=dict_volatil.get)
-    # print(f'    {mode} - {dict_volatil.pop(mode)} %')
+    vivod_max_min(max, dict_volatil)
     keys = [k for k, v in dict_volatil.items() if v == 0]
     for key in keys:
         dict_volatil.pop(key)
     print('Минимальная волатильность:')
-    vivod(min, dict_volatil)
-    # mode = min(dict_volatil, key=dict_volatil.get)
-    # print(f'    {mode} - {dict_volatil.pop(mode)} %')
-    # mode = min(dict_volatil, key=dict_volatil.get)
-    # print(f'    {mode} - {dict_volatil.pop(mode)} %')
-    # mode = min(dict_volatil, key=dict_volatil.get)
-    # print(f'    {mode} - {dict_volatil.pop(mode)} %')
+    vivod_max_min(min, dict_volatil)
     print('Нулевая волатильность:')
     str = ''
     for key in keys:
@@ -145,13 +133,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-#   Максимальная волатильность:
-#       ТИКЕР1 - ХХХ.ХХ %
-#       ТИКЕР2 - ХХХ.ХХ %
-#       ТИКЕР3 - ХХХ.ХХ %
-#   Минимальная волатильность:
-#       ТИКЕР4 - ХХХ.ХХ %
-#       ТИКЕР5 - ХХХ.ХХ %
-#       ТИКЕР6 - ХХХ.ХХ %
-#   Нулевая волатильность:
-#       ТИКЕР7, ТИКЕР8, ТИКЕР9, ТИКЕР10, ТИКЕР11, ТИКЕР12
