@@ -17,11 +17,13 @@ class Bot:
         for event in self.long_poller.listen():
             try:
                 self.on_event(event)
+
             except Exception as exc:
                 print(exc)
 
     def on_event(self, event):
         if event.type == vk_api.bot_longpoll.VkBotEventType.MESSAGE_NEW:
+            print('событие получено')# Что-то тут е так
             self.api.massages.send(
                 massage=event.object.text,
                 random_id=random.randint(0, 2**20),
