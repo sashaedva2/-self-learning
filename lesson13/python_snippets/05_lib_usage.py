@@ -14,7 +14,7 @@ class PostCardMaker:
         self.name = name
         self.template = "post_card.jpg" if template is None else template
         if font_path is None:
-            self.font_path = os.path.join("fonts", "ofont_ru_DS Eraser2.ttf")
+            self.font_path = os.path.join("C:\\Users\\sasha\\PycharmProjects\\-self-learning\\lesson13\\fonts", "ofont_ru_DS Eraser2.ttf")
         else:
             self.font_path = font_path
 
