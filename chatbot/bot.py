@@ -24,8 +24,10 @@ class Bot:
     def on_event(self, event):
         if event.type == vk_api.bot_longpoll.VkBotEventType.MESSAGE_NEW:
             print('событие получено')# Что-то тут е так
+            print(event.object.message['text']) # текст сообщения не выводит и даёт Nones
+            print(type(event.object.message))
             self.api.massages.send(
-                massage=event.object.text,
+                massage=event.object.message['text'],
                 random_id=random.randint(0, 2**20),
                 peer_id=event.object.peer_id,
             )
